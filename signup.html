@@ -3,17 +3,26 @@
   <head>
     <title>Sign Up Page</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
+
+    <!-- Firebase configuration -->
+    <script src="firebaseConfig.js"></script>
+
+    <!-- App script -->
+    <script src="app.js"></script>
   </head>
   <body>
     <form>
       <h2>Sign Up</h2>
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" required>
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required>
-      <button type="submit">Sign Up</button>
+      <label for="email-input">Email</label>
+      <input type="email" id="email-input" name="email-input" required>
+      <label for="password-input">Password</label>
+      <input type="password" id="password-input" name="password-input" required>
+      <button type="submit" id="sign-up-btn">Sign Up</button>
     </form>
   </body>
 </html>
