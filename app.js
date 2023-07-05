@@ -2,6 +2,7 @@
 var firebaseConfig = {
   apiKey: "AIzaSyBl8VK9xXMVeAQDH4Pvk5YDfmkSHJugI4E",
   authDomain: "lqet-9aa46.firebaseapp.com",
+  databaseURL: "https://lqet-9aa46-default-rtdb.firebaseio.com",
   projectId: "lqet-9aa46",
   storageBucket: "lqet-9aa46.appspot.com",
   messagingSenderId: "850395072418",
