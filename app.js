@@ -1,38 +1,36 @@
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyBl8VK9xXMVeAQDH4Pvk5YDfmkSHJugI4E",
-  authDomain: "lqet-9aa46.firebaseapp.com",
-  projectId: "lqet-9aa46",
-  storageBucket: "lqet-9aa46.appspot.com",
-  messagingSenderId: "850395072418",
-  appId: "1:850395072418:web:f02d86f49f4f44fc3bd4fb",
-  measurementId: "G-TS6KMQL348"
+// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  appId: "YOUR_APP_ID"
 };
+
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Get elements from the HTML DOM
-const form = document.querySelector('#signup-form');
-const emailInput = document.querySelector('#email');
-const passwordInput = document.querySelector('#password');
-const messageDiv = document.querySelector('#message');
+// Get elements
+var signupForm = document.getElementById('signup-form');
 
-// Add submit event listener to form
-form.addEventListener('submit', (e) => {
-  e.preventDefault(); // prevent default form submission behavior
+// Add signup form submit event listener
+signupForm.addEventListener('submit', function(event) {
+  event.preventDefault();
 
-  // Get user input values
-  const email = emailInput.value;
-  const password = passwordInput.value;
+  // Get user inputs
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
 
-  // Create new user with email and password
+  // Sign up with email and password
   firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      // Clear the form and show success message
-      form.reset();
-      messageDiv.innerHTML = "Signup successful!";
+    .then(function(userCredential) {
+      // Signed up successfully
+      var user = userCredential.user;
+      console.log('Signup successful:', user);
     })
-    .catch((error) => {
-      // Show error message to user
-      messageDiv.innerHTML = error.message;
+    .catch(function(error) {
+      // Handle errors
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.error('Signup error:', errorCode, errorMessage);
     });
 });
