@@ -1,3 +1,4 @@
+// Initialize Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyBl8VK9xXMVeAQDH4Pvk5YDfmkSHJugI4E",
   authDomain: "lqet-9aa46.firebaseapp.com",
@@ -7,31 +8,31 @@ const firebaseConfig = {
   appId: "1:850395072418:web:f02d86f49f4f44fc3bd4fb",
   measurementId: "G-TS6KMQL348"
 };
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-// Initialize Firebase Authentication
-const auth = firebase.auth();
+firebase.initializeApp(firebaseConfig);
 
-// Add event listener to the sign up button
-const signUpBtn = document.getElementById("sign-up-btn");
-signUpBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  
-  // Get the user's email and password
-  const email = document.getElementById("email-input").value;
-  const password = document.getElementById("password-input").value;
-  
-  // Create a new user with email and password
-  auth.createUserWithEmailAndPassword(email, password)
+// Get elements from the HTML DOM
+const form = document.querySelector('#signup-form');
+const emailInput = document.querySelector('#email');
+const passwordInput = document.querySelector('#password');
+const messageDiv = document.querySelector('#message');
+
+// Add submit event listener to form
+form.addEventListener('submit', (e) => {
+  e.preventDefault(); // prevent default form submission behavior
+
+  // Get user input values
+  const email = emailInput.value;
+  const password = passwordInput.value;
+
+  // Create new user with email and password
+  firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
-      // Signed up successfully
-      const user = userCredential.user;
-      console.log(user);
+      // Clear the form and show success message
+      form.reset();
+      messageDiv.innerHTML = "Signup successful!";
     })
     .catch((error) => {
-      // Handle errors here
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      // Show error message to user
+      messageDiv.innerHTML = error.message;
     });
 });
