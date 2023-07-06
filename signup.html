@@ -94,7 +94,7 @@
         // Get a reference to the authentication service
         var auth = firebase.auth();
 
-       // Handle the form submission
+      // Handle the form submission
 document.getElementById('signup-form').addEventListener('submit', function (e) {
     e.preventDefault();
     var email = document.getElementById('email').value;
@@ -107,19 +107,26 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
             var user = userCredential.user;
             console.log('User signed up:', user);
 
-            // Store user information in Firestore
+            // Automatically create a user document in Firestore
             var userId = user.uid;
-            firestore.collection("users").doc(userId).set({
-                email: email
-            })
-            .then(function () {
-                console.log("User information stored in Firestore for user:", userId);
-                // You can redirect the user to another page here or show a success message
-            })
-            .catch(function (error) {
-                console.error("Error storing user information in Firestore:", error);
-                // Handle the error
-            });
+            var userDocRef = firestore.collection("users").doc(userId);
+
+            // Set the initial user document data
+            var userData = {
+                email: email,
+                // Add any other necessary user data fields here
+            };
+
+            // Create the user document in Firestore
+            userDocRef.set(userData)
+                .then(function () {
+                    console.log("User document created in Firestore for user:", userId);
+                    // You can redirect the user to another page here or show a success message
+                })
+                .catch(function (error) {
+                    console.error("Error creating user document in Firestore:", error);
+                    // Handle the error
+                });
         })
         .catch(function (error) {
             // Handle errors here
