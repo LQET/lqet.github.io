@@ -20,17 +20,19 @@
         <button type="submit">Sign Up</button>
     </form>
 
+    <p id="signup-success-message" style="display: none; color: green;">Signup successful!</p>
+
     <!-- Initialize Firebase -->
     <script>
         var firebaseConfig = {
-     apiKey: "AIzaSyBl8VK9xXMVeAQDH4Pvk5YDfmkSHJugI4E",
-     authDomain: "lqet-9aa46.firebaseapp.com",
-     databaseURL: "https://lqet-9aa46-default-rtdb.firebaseio.com",
-     projectId: "lqet-9aa46",
-     storageBucket: "lqet-9aa46.appspot.com",
-     messagingSenderId: "850395072418",
-     appId: "1:850395072418:web:f02d86f49f4f44fc3bd4fb",
-     measurementId: "G-TS6KMQL348"
+            apiKey: "AIzaSyBl8VK9xXMVeAQDH4Pvk5YDfmkSHJugI4E",
+            authDomain: "lqet-9aa46.firebaseapp.com",
+            databaseURL: "https://lqet-9aa46-default-rtdb.firebaseio.com",
+            projectId: "lqet-9aa46",
+            storageBucket: "lqet-9aa46.appspot.com",
+            messagingSenderId: "850395072418",
+            appId: "1:850395072418:web:f02d86f49f4f44fc3bd4fb",
+            measurementId: "G-TS6KMQL348"
         };
 
         // Initialize Firebase
@@ -51,6 +53,9 @@
                     // User signed up successfully
                     var user = userCredential.user;
                     console.log('User signed up:', user);
+                    document.getElementById('signup-success-message').style.display = 'block';
+                    document.getElementById('email').value = '';
+                    document.getElementById('password').value = '';
                     // You can redirect the user to another page here
                 })
                 .catch(function (error) {
