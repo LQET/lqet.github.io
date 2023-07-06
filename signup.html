@@ -94,30 +94,41 @@
         // Get a reference to the authentication service
         var auth = firebase.auth();
 
-        // Handle the form submission
-        document.getElementById('signup-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
+       // Handle the form submission
+document.getElementById('signup-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
 
-            // Create a new user with email and password
-            auth.createUserWithEmailAndPassword(email, password)
-                .then(function (userCredential) {
-                    // User signed up successfully
-                    var user = userCredential.user;
-                    console.log('User signed up:', user);
-                    document.getElementById('signup-success-message').style.display = 'block';
-                    document.getElementById('email').value = '';
-                    document.getElementById('password').value = '';
-                    // You can redirect the user to another page here
-                })
-                .catch(function (error) {
-                    // Handle errors here
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.error('Signup error:', errorCode, errorMessage);
-                });
+    // Create a new user with email and password
+    auth.createUserWithEmailAndPassword(email, password)
+        .then(function (userCredential) {
+            // User signed up successfully
+            var user = userCredential.user;
+            console.log('User signed up:', user);
+
+            // Store user information in Firestore
+            var userId = user.uid;
+            firestore.collection("users").doc(userId).set({
+                email: email
+            })
+            .then(function () {
+                console.log("User information stored in Firestore for user:", userId);
+                // You can redirect the user to another page here or show a success message
+            })
+            .catch(function (error) {
+                console.error("Error storing user information in Firestore:", error);
+                // Handle the error
+            });
+        })
+        .catch(function (error) {
+            // Handle errors here
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.error('Signup error:', errorCode, errorMessage);
         });
+});
+
 
         // Add an authentication state change listener
         auth.onAuthStateChanged(function (user) {
